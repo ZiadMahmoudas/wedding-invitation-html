@@ -875,3 +875,54 @@ body.hearts-on-dark .falling-heart.is-outline{
 .wish-dots{display:flex;justify-content:center;gap:7px;margin-top:14px;min-height:8px}.wish-dot{width:6px;height:6px;border:0;border-radius:999px;padding:0;background:#d8bbaa;opacity:.55;transition:.25s ease}.wish-dot.is-active{width:20px;background:#7a2b31;opacity:1}
 .primary-btn:disabled{opacity:.62;cursor:wait;transform:none}
 @media(max-width:700px){.wishes-slider{padding:0 38px}.wishes{min-height:190px}.wish{padding:22px 20px}.wish-nav{width:32px;height:32px;font-size:23px}.wish-nav--prev{right:0}.wish-nav--next{left:0}.wish strong{font-size:18px}}
+
+
+/* =========================================================
+   V15 — TRUE FULL-SCREEN DESKTOP + RESTORED CONTRAST HEARTS
+   ========================================================= */
+@media (min-width:701px){
+  .opening,
+  .cover-stage,
+  .cover-art,
+  .invitation-section,
+  .invitation-art{
+    width:100vw!important;
+    height:100dvh!important;
+    min-height:100dvh!important;
+    max-width:none!important;
+  }
+
+  /* Fill the whole browser viewport on desktop. The 16:9 artwork only loses
+     a tiny amount from the top/bottom on extra-wide browser windows. */
+  .cover-art img,
+  .invitation-art .invitation-section__image{
+    width:100vw!important;
+    height:100dvh!important;
+    object-fit:cover!important;
+    object-position:center 48%!important;
+    margin:0!important;
+    padding:0!important;
+  }
+
+  .cover-stage::before,
+  .invitation-section::before{
+    display:none!important;
+  }
+
+  .cover-vignette{
+    background:linear-gradient(180deg,rgba(25,3,7,.06),transparent 20%,transparent 80%,rgba(25,3,7,.08))!important;
+  }
+}
+
+/* Hearts remain clearly visible regardless of section background. */
+body.hearts-active .heart-rain{opacity:1!important}
+body.hearts-on-light .falling-heart{
+  color:rgba(137,29,42,.92)!important;
+  text-shadow:0 3px 13px rgba(95,15,28,.18)!important;
+}
+body.hearts-on-light .falling-heart.is-outline{color:rgba(177,52,66,.88)!important}
+body.hearts-on-dark .falling-heart{
+  color:rgba(255,249,240,.96)!important;
+  text-shadow:0 3px 14px rgba(255,236,216,.20)!important;
+}
+body.hearts-on-dark .falling-heart.is-outline{color:rgba(255,226,202,.90)!important}

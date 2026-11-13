@@ -1,30 +1,23 @@
-Farouk & Roaa Wedding Invitation — V5
+Farouk & Roaa Wedding — V15
 
-Pure HTML + CSS + JavaScript. No framework and no build step.
-Open index.html directly in the browser.
+Vercel URL:
+/w/farouk-roaa
 
-V5 changes:
-- Removed the small custom scrollbar completely. Only the normal browser scrollbar remains.
-- The invitation artwork is also included as the first section inside the scrolling website.
-- Desktop shows the complete invitation artwork centered and uncropped.
-- Mobile keeps the invitation sizing from the previous version.
-- The open control is now a single F&R glass circle at the bottom.
-- The venue card and Google Maps button use a glass effect.
-- The location pin sits below the venue details.
-- Auto-scroll continuously moves down, returns smoothly to the top, then repeats.
-- Any click, touch or manual wheel/scroll pauses it briefly, then it automatically resumes from the current position.
+Neon / Vercel:
+1) Vercel > Settings > Environment Variables > Add Environment Variable
+2) Type: Secret
+3) Key: DATABASE_URL
+4) Value: your NEW rotated Neon pooled PostgreSQL connection string
+5) Environment: Production (add Preview too if you want preview deployments to use the guestbook)
+6) Save, then redeploy
 
-Music:
-Place your song here:
-assets/song.mp3
+Do not put DATABASE_URL in index.html or script.js.
 
-V7 responsive notes:
-- Desktop invitation is visually wider/larger without cropping the artwork.
-- Mobile F&R seal is smaller and lower so it does not cover the venue line.
-- The invitation section after opening occupies one full dynamic viewport (100dvh) before the next section starts.
+Database schema: run neon-schema.sql once in Neon SQL Editor.
 
-V9 layout note:
-- Desktop uses assets/invitation-maroon-wide.jpg for a full-bleed landscape invitation.
-- Mobile keeps the original square artwork and fills the full dynamic viewport height.
-
-V12: hearts invert with section contrast: burgundy on cream, warm white on burgundy.
+V15 changes:
+- desktop invitation truly fills the viewport
+- falling hearts restored on every section
+- cream background => burgundy/red hearts
+- burgundy background => warm white hearts
+- Neon guestbook slider remains enabled

@@ -371,44 +371,45 @@ loadWishes();
 updateScrollDecoration();
 
 /* =============================
-   CONTEXT-AWARE FALLING HEARTS
-   Light/cream sections use burgundy hearts.
-   Dark/burgundy sections use warm white hearts.
+   CONTEXT-AWARE FALLING HEARTS — V15
+   Light sections  => burgundy/red hearts
+   Dark sections   => warm white hearts
    ============================= */
 const heartRain = document.getElementById('heartRain');
 let heartTimer = null;
-let heartsLightZone = false;
-let heartsActive = false;
+let currentHeartTone = 'dark';
 
-function isLightHeartSection() {
-  const probe = document.elementFromPoint(
-    Math.max(1, Math.min(window.innerWidth - 1, window.innerWidth * 0.5)),
-    Math.max(1, Math.min(window.innerHeight - 1, window.innerHeight * 0.44))
-  );
-  return !!probe?.closest?.('.story, .quote, .guestbook');
+function getHeartTone() {
+  const x = Math.max(1, Math.min(window.innerWidth - 1, window.innerWidth * 0.5));
+  const y = Math.max(1, Math.min(window.innerHeight - 1, window.innerHeight * 0.44));
+  const probe = document.elementFromPoint(x, y);
+  if (probe?.closest?.('.story, .quote, .guestbook')) return 'light';
+  if (probe?.closest?.('.invitation-section, .details, .footer')) return 'dark';
+  return currentHeartTone || 'dark';
 }
 
 function updateHeartZone() {
-  heartsLightZone = isLightHeartSection();
-  document.body.classList.toggle('hearts-on-light', heartsLightZone);
-  document.body.classList.toggle('hearts-on-dark', !heartsLightZone);
+  currentHeartTone = getHeartTone();
+  document.body.classList.add('hearts-active');
+  document.body.classList.toggle('hearts-on-light', currentHeartTone === 'light');
+  document.body.classList.toggle('hearts-on-dark', currentHeartTone === 'dark');
 }
 
 function spawnHeart() {
-  if (!heartRain || prefersReducedMotion || document.hidden || !heartsActive) return;
+  if (!heartRain || prefersReducedMotion || document.hidden || !document.body.classList.contains('hearts-active')) return;
 
   const heart = document.createElement('span');
-  const outline = Math.random() > 0.48;
+  const outline = Math.random() > 0.50;
   heart.className = `falling-heart${outline ? ' is-outline' : ''}`;
   heart.textContent = outline ? '♡' : '♥';
 
-  const size = 12 + Math.random() * 13;
-  const duration = 7.2 + Math.random() * 4.2;
-  const drift = -65 + Math.random() * 130;
-  const spin = -220 + Math.random() * 440;
-  const opacity = 0.52 + Math.random() * 0.34;
+  const size = 12 + Math.random() * 14;
+  const duration = 7.4 + Math.random() * 4.2;
+  const drift = -72 + Math.random() * 144;
+  const spin = -240 + Math.random() * 480;
+  const opacity = 0.52 + Math.random() * 0.31;
 
-  heart.style.left = `${3 + Math.random() * 94}%`;
+  heart.style.left = `${2 + Math.random() * 96}%`;
   heart.style.fontSize = `${size}px`;
   heart.style.setProperty('--heart-size', `${size}px`);
   heart.style.setProperty('--heart-duration', `${duration}s`);
@@ -417,25 +418,33 @@ function spawnHeart() {
   heart.style.setProperty('--heart-opacity', opacity.toFixed(2));
   heartRain.appendChild(heart);
 
-  window.setTimeout(() => heart.remove(), (duration + 0.8) * 1000);
+  window.setTimeout(() => heart.remove(), (duration + 0.9) * 1000);
 }
 
 function startHeartRain() {
   if (prefersReducedMotion || heartTimer) return;
-  heartsActive = true;
-  document.body.classList.add('hearts-active');
   updateHeartZone();
-  for (let i = 0; i < 6; i++) window.setTimeout(spawnHeart, i * 220);
-  heartTimer = window.setInterval(spawnHeart, 430);
+  for (let i = 0; i < 7; i++) window.setTimeout(spawnHeart, i * 210);
+  heartTimer = window.setInterval(spawnHeart, 390);
 }
 
-window.addEventListener('scroll', updateHeartZone, { passive: true });
-window.addEventListener('resize', updateHeartZone);
+let heartZoneRaf = 0;
+function scheduleHeartZoneUpdate() {
+  if (heartZoneRaf) return;
+  heartZoneRaf = requestAnimationFrame(() => {
+    heartZoneRaf = 0;
+    updateHeartZone();
+  });
+}
 
-// Begin the heart system only after the invitation is opened.
+window.addEventListener('scroll', scheduleHeartZoneUpdate, { passive: true });
+window.addEventListener('resize', scheduleHeartZoneUpdate);
+
+// Begin after the invitation opens, then keep running across all sections.
 openBtn.addEventListener('click', () => {
   window.setTimeout(() => {
+    document.body.classList.add('hearts-active');
     updateHeartZone();
     startHeartRain();
-  }, 900);
+  }, 760);
 }, { once: true });
