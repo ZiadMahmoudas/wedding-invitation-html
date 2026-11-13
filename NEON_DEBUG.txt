@@ -1,0 +1,15 @@
+After deploying this version, open:
+
+https://YOUR-DOMAIN.vercel.app/api/health
+
+Expected success:
+{"ok":true,"env":true,"database":true,"table":true,"error":null}
+
+Possible errors:
+DATABASE_URL_NOT_CONFIGURED = DATABASE_URL is missing from this deployment.
+DB_AUTH_FAILED = Neon password/connection string is wrong or stale. Reset password, copy a fresh pooled connection string, replace DATABASE_URL in Vercel, then redeploy.
+TABLE_NOT_FOUND = You connected to a different database/branch. Use production + neondb where wedding_wishes exists.
+INVALID_DATABASE_URL = DATABASE_URL was pasted incorrectly.
+DB_NETWORK_ERROR = connectivity problem; inspect Vercel Function logs.
+
+Neon Auth URL/JWKS/Trusted Domains are NOT used by this guestbook.
