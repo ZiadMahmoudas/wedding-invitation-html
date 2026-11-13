@@ -1,0 +1,10 @@
+1) Neon Console > SQL Editor: run neon-schema.sql.
+2) Neon Console > Connect: copy the Pooled connection string.
+3) Vercel project > Settings > Environment Variables:
+   Name: DATABASE_URL
+   Value: paste the Neon connection string
+   Type: Secret
+   Environments: Production + Preview
+4) Redeploy the Vercel project.
+5) Open /api/wishes. It should return JSON such as {"wishes":[]}.
+6) Open /w/farouk-roaa and submit a greeting.

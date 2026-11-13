@@ -1,0 +1,13 @@
+Farouk & Roaa — Vercel upload
+
+1) Open https://vercel.com/drop
+2) Drag this whole folder/ZIP.
+3) Set the project name to: farouk-roaa-wedding
+4) Deploy.
+5) The invitation route is:
+   https://YOUR-PROJECT.vercel.app/w/farouk-roaa
+
+If farouk-roaa-wedding is available, the expected production URL is:
+https://farouk-roaa-wedding.vercel.app/w/farouk-roaa
+
+Note: Vercel project/domain names cannot use spaces or the & character, so the URL uses hyphens. The visible page title remains “Farouk ❤️ Roaa | Wedding Invitation”.
