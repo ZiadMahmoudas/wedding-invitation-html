@@ -1,17 +1,9 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/",
-      "destination": "/w/farouk-roaa",
-      "permanent": false
-    }
+    { "source": "/", "destination": "/w/farouk-roaa", "permanent": false }
   ],
   "rewrites": [
-    {
-      "source": "/w/farouk-roaa",
-      "destination": "/w/farouk-roaa/index.html"
-    }
+    { "source": "/w/farouk-roaa", "destination": "/w/farouk-roaa/index.html" }
   ]
 }
